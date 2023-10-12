@@ -42,11 +42,9 @@ const CoreTeam = () => {
   const addMember = async ()=>{
     if (
       !user.position ||
-      !user.facebook ||
-      !user.name ||
-      !user.instagram ||
-      !user.twitter ||
-      !user.linkedin
+      !user.branch||
+      
+      !user.name
     ) {
       toast.error("Please fill all required fields!");
     } else {
@@ -60,6 +58,7 @@ const CoreTeam = () => {
           ...user,
           name: "",
           position: "",
+          branch: "",
           facebook: "",
           instagram: "",
           linkedin: "",
@@ -197,6 +196,17 @@ const [file, setFile] = useState();
                       border="2px solid #675cff "
                       type="text"
                     />
+                     <FormLabel>Enter Branch</FormLabel>
+                    <Input
+                      name="branch"
+                      value={user.branch}
+                      onChange={handelUser}
+                      focusBorderColor="#675cff"
+                      borderRadius={"20"}
+                      border="2px solid #675cff "
+                      type="text"
+                    />
+                    
                     <FormLabel>Enter Facebook</FormLabel>
                     <Input
                       name="facebook"

@@ -176,7 +176,7 @@ const paymentSchema = new mongoose.Schema({
 const coreTeamSchema = new mongoose.Schema({
   pimg: {
     type: String,
-    required: true,
+    
   },
   name: {
     type: String,
@@ -193,7 +193,7 @@ const coreTeamSchema = new mongoose.Schema({
     type: String,
   },
   instagram: {
-    type: Number,
+    type: String,
   },
   facebook: {
     type: String,
@@ -382,16 +382,20 @@ const userOneData = async (req, res) => {
   }
 };
 
-//10. Core Team Data Create Controller
+// 10. Core Team Data Create Controller
 const createTeam = async (req, res) => {
-  const { name, position, instagram, facebook, linkedin, twitter, profile } =
+  const { name, position, instagram, facebook, linkedin, twitter, profile , branch} =
     req.body;
-  console.log(req.body);
+
+  // Set a default image URL if 'profile' is not provided
+  const defaultProfileImage = 'demoimg.png'; // Replace with the actual URL
+
   if (!name || !position) {
     return res
       .status(400)
       .json({ error: "Fill required fields", success: false });
   }
+
   const userExist = await Team.findOne({ name: name });
   if (userExist) {
     return res
@@ -407,7 +411,8 @@ const createTeam = async (req, res) => {
       facebook: facebook,
       linkedin: linkedin,
       twitter: twitter,
-      pimg: profile,
+      branch : branch,
+      pimg: profile || defaultProfileImage, // Use the provided profile or default image
     });
     console.log("done");
     await newMember.save();
@@ -418,6 +423,7 @@ const createTeam = async (req, res) => {
     res.status(400).json({ error: error, success: false });
   }
 };
+
 
 //11. Single Core Team Data Controller
 const singleCoreTeam = async (req, res) => {
