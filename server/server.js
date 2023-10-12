@@ -186,6 +186,10 @@ const coreTeamSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  branch: {
+    type: String,
+    required: true,
+  },
   linkedin: {
     type: String,
   },
@@ -384,13 +388,13 @@ const userOneData = async (req, res) => {
 
 // 10. Core Team Data Create Controller
 const createTeam = async (req, res) => {
-  const { name, position, instagram, facebook, linkedin, twitter, profile , branch} =
+  const { name, position, branch, instagram, facebook, linkedin, twitter, profile } =
     req.body;
 
   // Set a default image URL if 'profile' is not provided
   const defaultProfileImage = 'demoimg.png'; // Replace with the actual URL
 
-  if (!name || !position) {
+  if (!name || !position || !branch) {
     return res
       .status(400)
       .json({ error: "Fill required fields", success: false });
@@ -407,11 +411,11 @@ const createTeam = async (req, res) => {
     const newMember = new Team({
       name: name,
       clubPosition: position,
+      branch : branch,
       insta: instagram,
       facebook: facebook,
       linkedin: linkedin,
-      twitter: twitter,
-      branch : branch,
+      twitter: twitter,  
       pimg: profile || defaultProfileImage, // Use the provided profile or default image
     });
     console.log("done");

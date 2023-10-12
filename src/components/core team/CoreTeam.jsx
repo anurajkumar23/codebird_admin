@@ -33,6 +33,7 @@ const CoreTeam = () => {
   const [user, setUser] = useState({
     name: "",
     position: "",
+    branch : "",
     facebook: "",
     instagram: "",
     linkedin: "",
@@ -142,6 +143,7 @@ const [file, setFile] = useState();
                       <MemberCard
                         key={key}
                         name={element.name}
+                        branch={element.branch}
                         position={element.clubPosition}
                         facebook={element.facebook}
                         linkedin={element.linkedin}
